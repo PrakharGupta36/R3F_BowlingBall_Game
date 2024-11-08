@@ -1,57 +1,64 @@
+import React, { useEffect } from "react";
 import { useGLTF } from "@react-three/drei";
 import {
   RapierRigidBody,
   RigidBody,
   RigidBodyProps,
 } from "@react-three/rapier";
-import { GLTF } from "three-stdlib";
 import * as THREE from "three";
+import { GLTF } from "three-stdlib";
+import { GameState } from "../hooks/GameState";
 
 // Define a type for the GLTF model
 type BallGLTF = GLTF & {
   nodes: {
-    defaultMaterial: THREE.Mesh;
+    ballShape_ball_0: THREE.Mesh;
   };
   materials: {
-    DefaultMaterial: THREE.Material;
+    ball: THREE.Material;
   };
 };
 
-// Define the BallProps type to accept a ballRef prop
-type BallProps = {
+interface ModelProps extends RigidBodyProps {
   ballRef: React.RefObject<RapierRigidBody>;
-} & RigidBodyProps;
+}
 
-export default function Ball({ ballRef, ...props }: BallProps) {
+export default function Ball({ ballRef, ...props }: ModelProps) {
   const { nodes, materials } = useGLTF("/Ball.glb") as BallGLTF;
+  const [ballRollingSound] = React.useState(new Audio("/Ball_Rolling.mp3"));
+
+  const clicked = GameState((state) => state.clicked);
+  const strength = GameState((state) => state.strength);
+  const direction = GameState((state) => state.direction);
+
+  useEffect(() => {
+    if (clicked) {
+      ballRef.current?.applyImpulse({ x: direction, y: 0, z: -9 }, true);
+      ballRollingSound.play();
+    }
+  }, [ballRef, ballRollingSound, clicked, strength, direction]);
 
   return (
     <RigidBody
-      scale={0.55}
-      ref={ballRef} // Pass the ballRef to RigidBody
+      scale={0.04}
+      ref={ballRef}
       colliders='ball'
-      position={[0, -0.8, 7]}
+      position={[0, -0.5, 7.5]}
       friction={4}
       mass={10}
       {...props}
     >
       <group dispose={null}>
-        <group rotation={[-Math.PI / 2, 0, 0]}>
-          <mesh
-            onClick={() =>
-              ballRef.current?.applyImpulse({ x: 0.08, y: 0, z: -6 }, true)
-            }
-            castShadow
-            receiveShadow
-            geometry={nodes.defaultMaterial.geometry}
-            material={materials.DefaultMaterial}
-            rotation={[Math.PI / 2, 0, 0]}
-          />
-        </group>
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.ballShape_ball_0.geometry}
+          material={materials.ball}
+          // onClick={() => setClicked(true)}
+        />
       </group>
     </RigidBody>
   );
 }
 
-// Preload the GLTF file for performance optimization
 useGLTF.preload("/Ball.glb");

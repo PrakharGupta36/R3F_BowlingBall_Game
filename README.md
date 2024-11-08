@@ -5,9 +5,9 @@
 *Texture source for the bowling floor.*
 
 ## <span style="color: #0098da; font-family: 'Courier New', monospace;">Bowling Ball:</span>
-**Author**: [Diversant-ka](https://sketchfab.com/Diversant-ka)
+**Author**: [local.yany](https://sketchfab.com/local.yany)
 **License**: [CC-BY-4.0](http://creativecommons.org/licenses/by/4.0/)
-**Source**: [Bowling Ball Model](https://sketchfab.com/3d-models/bowling-ball-5d31d395e0e24138900065b642ac8299)
+**Source**: [Bowling Ball Model](https://sketchfab.com/3d-models/bowling-ball-e66623ee44054224ace88b09ba640c28)
 
 *3D model of a bowling ball, used in the game.*
 

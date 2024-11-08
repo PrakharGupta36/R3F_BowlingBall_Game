@@ -1,7 +1,6 @@
-export default function Lights() {
-  const INTENSITY = 80;
-  const POSITION_NUMBER = 7;
+import { INTENSITY, POSITION_NUMBER } from "../utils/constants";
 
+export default function Lights() {
   // Define the light positions in an array
   const lightPositions = [
     [POSITION_NUMBER, POSITION_NUMBER, POSITION_NUMBER],
@@ -17,7 +16,7 @@ export default function Lights() {
         <pointLight
           key={index}
           castShadow
-          position={position as [number,number,number]}
+          position={position as [number, number, number]}
           intensity={INTENSITY}
         />
       ))}

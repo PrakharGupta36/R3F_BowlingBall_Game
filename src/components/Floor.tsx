@@ -14,7 +14,7 @@ export default function Floor() {
   return (
     <RigidBody type='fixed' contactSkin={0}>
       <mesh receiveShadow rotation={[-Math.PI / 2, 0, 0]} position={[0, -1, 0]}>
-        <planeGeometry args={[9, 18]} />
+        <planeGeometry args={[9, 30]} />
         <meshPhysicalMaterial
           map={diffuse} // Base color map
           displacementMap={displacement} // Displacement map for depth
