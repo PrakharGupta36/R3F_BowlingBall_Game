@@ -1,4 +1,4 @@
-const INTENSITY = 80;
-const POSITION_NUMBER = 7;
+const INTENSITY = 50;
+const POSITION_NUMBER = 4;
 
 export { INTENSITY, POSITION_NUMBER };

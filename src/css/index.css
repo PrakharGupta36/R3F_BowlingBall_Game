@@ -4,6 +4,16 @@
   font-family: "Poppins", serif;
   font-weight: 400;
   font-style: normal;
+
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  outline: none !important;
 }
 
 button,
@@ -34,40 +44,27 @@ body,
   opacity: 80%;
 }
 
-.main_button {
-  color: white;
-  border: 1px solid white;
-  border-radius: 1.5rem;
-  background-color: black;
-  /* width: 150px; */
-  padding: 1rem 1.25rem;
-
-  position: absolute;
-  bottom: -38vh; /* Adjust this value as needed for spacing from the bottom */
-
-  top: 50%;
-  transform: translateX(-50%); /* Only translate horizontally */
-}
-
 .strength_bar {
-  width: 20px;
-  position: absolute;
+  width: 12.5px;
+
   height: 400px;
   border-radius: 4rem;
+  background: linear-gradient(to bottom, #ff0101, #89ff01, #ffffff);
 
-  background: #ff0101;
-  background: radial-gradient(at center, #ff0101 30%, #89ff01);
-  background-size: contain;
-  bottom: -38vh;
-  left: 38dvh;
-  @media screen and (min-width: 600px) {
-    left: 42dvh;
-  }
   transform: translateX(-50%);
   display: flex;
   align-items: center;
   justify-content: center;
   border: 2px solid black;
+
+  
+  position: absolute;
+  bottom: -41.2dvh;
+  left: 35.5dvh;
+
+  @media only screen and (hover: none) and (pointer: coarse) {
+    left: 22.5dvh;
+  }
 
   .strength_bar_dial {
     width: 20px;
@@ -76,9 +73,5 @@ body,
     border: 2px solid black;
     border-radius: 1.5rem;
     position: absolute;
-    /* top: 3%; */
   }
-}
-
-.strength_text {
 }

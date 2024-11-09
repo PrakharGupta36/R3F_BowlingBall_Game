@@ -1,9 +1,10 @@
-import { Html, useGLTF } from "@react-three/drei";
+import { useGLTF } from "@react-three/drei";
 import { RigidBody, RigidBodyProps } from "@react-three/rapier";
 import { GroupProps } from "@react-three/fiber";
 import * as THREE from "three";
 import { GLTF } from "three-stdlib";
 import { useRef, useState } from "react";
+// import Label from "./Labels";
 
 // Define a type for the GLTF model
 type PinsGLTF = GLTF & {
@@ -28,61 +29,61 @@ export function Pins(props: PinsProps) {
   const pinData = [
     {
       name: "#TOY0003_V2_Pin001_#TOY0003_V2_Textures_0",
-      position: [0, 0.124, 0.55], // Slightly increased z value
+      position: [0, 0.124, 0.719],
       id: 1,
       isFallen: false,
     },
     {
       name: "#TOY0003_V2_Pin002_#TOY0003_V2_Textures_0",
-      position: [-0.18, 0.124, 0.4], // Slightly increased x and z values
+      position: [-0.15, 0.124, 0.419],
       id: 2,
       isFallen: false,
     },
     {
       name: "#TOY0003_V2_Pin003_#TOY0003_V2_Textures_0",
-      position: [0.18, 0.124, 0.4], // Slightly increased x and z values
+      position: [0.15, 0.124, 0.419],
       id: 3,
       isFallen: false,
     },
     {
       name: "#TOY0003_V2_Pin004_#TOY0003_V2_Textures_0",
-      position: [-0.25, 0.124, 0.1], // Slightly increased x and z values
+      position: [-0.3, 0.124, 0.12],
       id: 4,
       isFallen: false,
     },
     {
       name: "#TOY0003_V2_Pin005_#TOY0003_V2_Textures_0",
-      position: [0, 0.124, 0.1], // Slightly increased z value
+      position: [0, 0.124, 0.12],
       id: 5,
       isFallen: false,
     },
     {
       name: "#TOY0003_V2_Pin006_#TOY0003_V2_Textures_0",
-      position: [0.25, 0.124, 0.1], // Slightly increased x and z values
+      position: [0.3, 0.124, 0.12],
       id: 6,
       isFallen: false,
     },
     {
       name: "#TOY0003_V2_Pin007_#TOY0003_V2_Textures_0",
-      position: [-0.35, 0.124, -0.1], // Slightly increased x and z values
+      position: [-0.449, 0.124, -0.18],
       id: 7,
       isFallen: false,
     },
     {
       name: "#TOY0003_V2_Pin008_#TOY0003_V2_Textures_0",
-      position: [-0.18, 0.124, -0.1], // Slightly increased x and z values
+      position: [-0.15, 0.124, -0.18],
       id: 8,
       isFallen: false,
     },
     {
       name: "#TOY0003_V2_Pin009_#TOY0003_V2_Textures_0",
-      position: [0.18, 0.124, -0.1], // Slightly increased x and z values
+      position: [0.15, 0.124, -0.18],
       id: 9,
       isFallen: false,
     },
     {
       name: "#TOY0003_V2_Pin010_#TOY0003_V2_Textures_0",
-      position: [0.35, 0.124, -0.1], // Slightly increased x and z values
+      position: [0.449, 0.124, -0.18],
       id: 10,
       isFallen: false,
     },
@@ -92,36 +93,20 @@ export function Pins(props: PinsProps) {
   const pinRefs = useRef<THREE.Mesh[]>([]);
 
   return (
-    <group {...props} dispose={null} position={[0, -0.8, -5.2]}>
+    <group {...props} dispose={null} position={[0, -1.1, -7.2]}>
       {pinData.map((pin) => (
         <RigidBody
           key={pin.id}
-          mass={0.4}
+          mass={0.2}
           contactSkin={0}
-          scale={6.5}
+          scale={7}
           colliders='hull'
           onIntersectionExit={() => {
             pinFallingSound.volume = 0.4;
             pinFallingSound.play();
           }}
         >
-          <Html
-            center
-            position={[
-              pin.position[0] + 0.01,
-              pin.position[1] + 0.09 + pin.id * 0.015,
-              pin.position[2],
-            ]}
-          >
-            <span
-              className='text'
-              style={{
-                color: pin.isFallen ? "green" : "red",
-              }}
-            >
-              {pin.id}
-            </span>
-          </Html>
+          {/* <Label pin={pin} /> */}
           <mesh
             name={`Pin-${pin.id}`}
             castShadow

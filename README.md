@@ -1,7 +1,11 @@
 # <span style="font-family: 'Arial', sans-serif; font-weight: bold;">**R3F Bowling Ball Game**</span>
 
 ## <span style="color: #0098da; font-family: 'Courier New', monospace;">Floor Texture:</span>
-[Wood Planks](https://polyhaven.com/a/wood_planks)
+[Wood Planks](https://polyhaven.com/a/oak_veneer_01)
+*Texture source for the bowling floor.*
+
+## <span style="color: #0098da; font-family: 'Courier New', monospace;">Walls Texture:</span>
+[Wood Planks](https://polyhaven.com/a/oak_veneer_01)
 *Texture source for the bowling floor.*
 
 ## <span style="color: #0098da; font-family: 'Courier New', monospace;">Bowling Ball:</span>
