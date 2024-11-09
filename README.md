@@ -2,13 +2,13 @@
 
 ## <span style="color: #0098da; font-family: 'Courier New', monospace;">Floor Texture:</span>
 
-[Wood Planks](https://polyhaven.com/a/oak_veneer_01)
+[Wood Planks](https://polyhaven.com/a/wood_floor_worn)
 _Texture source for the bowling floor._
 
 ## <span style="color: #0098da; font-family: 'Courier New', monospace;">Walls Texture:</span>
 
-[Walls and Ceiling](https://polyhaven.com/a/plaster_brick_pattern)
-_Texture source for the bowling floor._
+[Walls and Ceiling](https://polyhaven.com/a/concrete_floor_worn_001)
+_Texture source for the bowling walls and ceiling._
 
 ## <span style="color: #0098da; font-family: 'Courier New', monospace;">Bowling Ball:</span>
 

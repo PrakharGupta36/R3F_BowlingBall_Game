@@ -3,31 +3,33 @@ import { useTexture } from "@react-three/drei";
 import * as THREE from "three";
 
 export default function Floor() {
-  // Load all the textures
-  const [diffuse, displacement, normal, roughness, ao] = useTexture([
+  const [diffuse, displacement, normal, roughness] = useTexture([
     "/floor_textures/diff_1k.jpg",
     "/floor_textures/disp_1k.png",
     "/floor_textures/normal_1k.png",
     "/floor_textures/rough_1k.png",
-    "/floor_textures/ao_1k.jpg",
   ]);
 
   return (
     <RigidBody type='fixed' contactSkin={0}>
-      <mesh receiveShadow rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.06, 0]}>
+      <mesh
+        receiveShadow
+        rotation={[-Math.PI / 2, 0, 0]}
+        position={[0, -1.06, 0]}
+      >
         <planeGeometry args={[13, 40]} />
         <meshPhysicalMaterial
-          map={diffuse} // Base color map
-          displacementMap={displacement} // Displacement map for depth
-          normalMap={normal} // Normal map for surface details
-          aoMap={ao}
-          roughnessMap={roughness} // Roughness map for shininess control
-          roughness={0.8} // Less roughness for slight shine
-          metalness={0.1} // Slight metallic look for subtle reflections
-          displacementScale={0.15} // More pronounced displacement
-          clearcoat={0.2} // Adds a slight glossy finish
-          clearcoatRoughness={0.5} // Controls glossiness
+          map={diffuse}
+          displacementMap={displacement}
+          normalMap={normal}
+          roughnessMap={roughness}
+          roughness={0.4} // A bit more reflective for realism
+          metalness={0.1} // Slight metallic look
+          displacementScale={0.2} // Subtle depth for more realism
+          clearcoat={0.1} // Soft shine for a semi-polished look
+          clearcoatRoughness={0.3} // Adds slight gloss to highlights
           side={THREE.DoubleSide}
+          color={"#b8b8b8"} // Slightly altered base color for realism
         />
       </mesh>
     </RigidBody>

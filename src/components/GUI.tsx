@@ -1,7 +1,8 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { GameState } from "../hooks/GameState";
 import Button from "./ui/Button";
 import { motion, useAnimationControls } from "framer-motion";
+import "../css/gui.css";
 
 type StrengthSliderProps = {
   dialRef: React.RefObject<HTMLDivElement>;
@@ -15,22 +16,25 @@ function StrengthSlider({ dialRef, value }: StrengthSliderProps) {
 
   const controls = useAnimationControls();
 
+  const [valueText, setValueText] = useState<string>("");
+
   useEffect(() => {
     if (isStrength) {
       controls.stop();
+      setValueText(`${100 - value}`);
     } else {
       controls.start({
         top: "96%",
         transition: {
-          duration: 0.8,
+          duration: 1,
           repeat: Infinity,
           repeatType: "reverse",
-          type: "bounce",
+          type: "tween",
           bounce: 0.05,
         },
       });
     }
-  }, [isStrength, controls]);
+  }, [isStrength, controls, value]);
 
   return (
     <div className='strength'>
@@ -42,10 +46,27 @@ function StrengthSlider({ dialRef, value }: StrengthSliderProps) {
         <motion.div
           ref={dialRef}
           className='strength_bar_dial'
-          initial={{ top: isStrength ? value : "1%" }}
+          initial={{ top: "1%" }}
           animate={controls}
-        ></motion.div>
+        >
+          <span
+            className='strength_bar_dial_text'
+            style={{
+              backgroundColor: valueText.length ? "black" : "transparent",
+            }}
+          >
+            {valueText}
+          </span>
+        </motion.div>
       </motion.div>
+    </div>
+  );
+}
+
+function DirectionSlider() {
+  return (
+    <div className='direction_slider'>
+      <div className='direction_slider_arc'></div>
     </div>
   );
 }
@@ -94,6 +115,7 @@ export default function GUI() {
 
   return (
     <>
+      <DirectionSlider />
       <StrengthSlider dialRef={dialRef} value={dialValue()} />
       <Button onClick={handleButtonClick} text={getButtonLabel()} />
     </>

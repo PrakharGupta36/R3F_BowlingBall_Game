@@ -93,33 +93,42 @@ export function Pins(props: PinsProps) {
   const pinRefs = useRef<THREE.Mesh[]>([]);
 
   return (
-    <group {...props} dispose={null} position={[0, -1.1, -7.2]}>
-      {pinData.map((pin) => (
-        <RigidBody
-          key={pin.id}
-          mass={0.2}
-          contactSkin={0}
-          scale={7}
-          colliders='hull'
-          onIntersectionExit={() => {
-            pinFallingSound.volume = 0.4;
-            pinFallingSound.play();
-          }}
-        >
-          {/* <Label pin={pin} /> */}
-          <mesh
-            name={`Pin-${pin.id}`}
-            castShadow
-            receiveShadow
-            geometry={nodes[pin.name].geometry}
-            material={materials.TOY0003_V2_Textures}
-            position={pin.position as [number, number, number]}
-            rotation={[-Math.PI / 2, 0, 0]}
-            ref={(ref) => (pinRefs.current[pin.id] = ref!)} // Attach the ref to the mesh
-          />
-        </RigidBody>
-      ))}
-    </group>
+    <>
+      <group {...props} dispose={null} position={[0, -1.15, -14]}>
+        {pinData.map((pin) => (
+          <RigidBody
+            key={pin.id}
+            mass={0.2}
+            contactSkin={0}
+            scale={7}
+            colliders='hull'
+            onIntersectionExit={() => {
+              pinFallingSound.volume = 0.4;
+              pinFallingSound.play();
+            }}
+          >
+            {/* <Label pin={pin} /> */}
+            <mesh
+              name={`Pin-${pin.id}`}
+              castShadow
+              receiveShadow
+              geometry={nodes[pin.name].geometry}
+              material={materials.TOY0003_V2_Textures}
+              position={pin.position as [number, number, number]}
+              rotation={[-Math.PI / 2, 0, 0]}
+              ref={(ref) => (pinRefs.current[pin.id] = ref!)} // Attach the ref to the mesh
+            />
+          </RigidBody>
+        ))}
+      </group>
+      {/* <pointLight
+        position={[1, 3, -16]}
+        intensity={10}
+        distance={0}
+        color={new THREE.Color(0xffffff)}
+        castShadow
+      /> */}
+    </>
   );
 }
 

@@ -41,8 +41,8 @@ export default function Ball({ ballRef, ...props }: ModelProps) {
     const normalMap = textureLoader.load("/floor_textures/normal_1k.png"); // Your texture path
 
     ballMaterial.normalMap = normalMap;
-    ballMaterial.roughness = 0.5;
-    ballMaterial.metalness = 0.4; // Subtle metallic look if desired
+    ballMaterial.roughness = 0.6;
+    ballMaterial.metalness = 0.1; // Subtle metallic look if desired
   }, [ballMaterial]);
 
   return (
@@ -63,11 +63,12 @@ export default function Ball({ ballRef, ...props }: ModelProps) {
           material={ballMaterial}
         />
       </RigidBody>
+
       <pointLight
         position={[0.75, 1, 16]} // Position the light close to the ball
-        intensity={15}
-        distance={5}
-        color={new THREE.Color(0xffe0b2)}
+        intensity={20}
+        distance={10}
+        color={new THREE.Color(0xffffff)}
         castShadow
       />
     </>

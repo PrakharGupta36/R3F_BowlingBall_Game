@@ -1,4 +1,4 @@
 const INTENSITY = 50;
-const POSITION_NUMBER = 4;
+const POSITION_NUMBER = 5;
 
 export { INTENSITY, POSITION_NUMBER };

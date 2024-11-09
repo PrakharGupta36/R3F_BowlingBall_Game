@@ -4,9 +4,9 @@ import * as THREE from "three";
 
 export default function Walls() {
   // Load available textures
-  const [diffuse, displacement, normal, roughness] = useTexture([
+  const [diffuse, normal, roughness] = useTexture([
     "/wall_textures/diff_1k.jpg",
-    "/wall_textures/disp_1k.png",
+    // "/wall_textures/disp_1k.png",
     "/wall_textures/normal_1k.png",
     "/wall_textures/rough_1k.png",
   ]);
@@ -31,6 +31,12 @@ export default function Walls() {
       position: [1, 9, 0],
       size: [20, 40],
     },
+    {
+      name: "wall-behind",
+      rotation: [0, 0, 0],
+      position: [0, 0, -20],
+      size: [20, 20],
+    },
   ];
 
   return (
@@ -46,41 +52,20 @@ export default function Walls() {
             <planeGeometry args={config.size as [number, number]} />
             <meshPhysicalMaterial
               map={diffuse}
-              displacementMap={displacement}
+              // displacementMap={displacement}
               normalMap={normal}
               roughnessMap={roughness}
-              roughness={1.75} // Slightly smoother for more sheen
-              metalness={0.05} // Low metallic value to hint at light reflection
-              displacementScale={0.15} // Enhance surface depth
-              clearcoat={0.25} // Adds a soft reflective layer
-              clearcoatRoughness={0.6} // Keeps clearcoat slightly diffused
+              roughness={.4} // Slightly more reflective for realism
+              metalness={0.2} // Very subtle metallic shine for texture
+              displacementScale={0.5} // Slight displacement for surface depth
+              clearcoat={0.1} // Soft glossy layer for shine
+              clearcoatRoughness={0.5} // A bit smoother clearcoat for reflections
               side={THREE.DoubleSide}
+              color={"#575757"} // Subtle color variation for realism
             />
           </mesh>
         </RigidBody>
       ))}
-      <RigidBody type='fixed' contactSkin={0}>
-        <mesh
-          name={"wall-behind"}
-          receiveShadow
-          rotation={[0, 0, 0]}
-          position={[0, 0, -20]}
-        >
-          <planeGeometry args={[20, 20]} />
-          <meshPhysicalMaterial
-            map={diffuse}
-            displacementMap={displacement}
-            normalMap={normal}
-            roughnessMap={roughness}
-            roughness={1.75} // Slightly smoother for more sheen
-            metalness={0.05} // Low metallic value to hint at light reflection
-            displacementScale={0.15} // Enhance surface depth
-            clearcoat={0.25} // Adds a soft reflective layer
-            clearcoatRoughness={0.6} // Keeps clearcoat slightly diffused
-            side={THREE.DoubleSide}
-          />
-        </mesh>
-      </RigidBody>
     </>
   );
 }
