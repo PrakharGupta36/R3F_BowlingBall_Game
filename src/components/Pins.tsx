@@ -98,7 +98,7 @@ export function Pins(props: PinsProps) {
         {pinData.map((pin) => (
           <RigidBody
             key={pin.id}
-            mass={0.2}
+            mass={10}
             contactSkin={0}
             scale={7}
             colliders='hull'

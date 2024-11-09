@@ -31,10 +31,10 @@ export default function Ball({ ballRef, ...props }: ModelProps) {
 
   useEffect(() => {
     if (clicked) {
-      ballRef.current?.applyImpulse({ x: direction, y: 0, z: -30 }, true);
+      ballRef.current?.applyImpulse({ x: direction, y: 0, z: strength }, true);
       ballRollingSound.play();
     }
-  }, [ballRef, ballRollingSound, clicked, strength, direction]);
+  }, [ballRef, ballRollingSound, clicked, direction, strength]);
 
   useEffect(() => {
     const textureLoader = new TextureLoader();
@@ -52,8 +52,9 @@ export default function Ball({ ballRef, ...props }: ModelProps) {
         ref={ballRef}
         colliders='ball'
         position={[0, -0.4, 16]}
-        friction={4}
-        mass={5}
+        friction={100}
+        mass={2}
+        restitution={0}
         {...props}
       >
         <mesh

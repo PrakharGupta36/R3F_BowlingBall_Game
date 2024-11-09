@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { motion } from "framer-motion";
 import "../../css/button.css"; // Import the CSS file
+import { isMobile } from "react-device-detect";
 
 interface ButtonProps {
   onClick: (e: React.MouseEvent<HTMLElement>) => void;
@@ -12,6 +13,7 @@ interface ButtonProps {
 export default function Button({ onClick, text }: ButtonProps) {
   const [audio, setAudio] = useState<AudioContext | null>(null);
   const [isPressed, setIsPressed] = useState(false);
+  const btnRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -28,7 +30,8 @@ export default function Button({ onClick, text }: ButtonProps) {
 
       oscillator.type = "square";
       oscillator.frequency.setValueAtTime(100, audio.currentTime);
-      gainNode.gain.setValueAtTime(1, audio.currentTime);
+      gainNode.gain.setValueAtTime(0.8, audio.currentTime);
+
       gainNode.gain.exponentialRampToValueAtTime(
         0.01,
         audio.currentTime + 0.05
@@ -44,14 +47,23 @@ export default function Button({ onClick, text }: ButtonProps) {
     setIsPressed(pressed);
   };
 
+  useEffect(() => {
+    if (isPressed) {
+      setTimeout(() => {
+        setIsPressed(false);
+      }, 100);
+    }
+  }, [isPressed]);
+
   return (
     <div>
       <motion.button
-        onMouseDown={() => handlePress(true)}
-        onMouseUp={() => handlePress(false)}
-        onMouseLeave={() => handlePress(false)}
-        onTouchStart={() => handlePress(true)}
-        onTouchEnd={() => handlePress(false)}
+        ref={btnRef}
+        onMouseDown={() => (!isMobile ? handlePress(true) : null)}
+        onMouseUp={() => (!isMobile ? handlePress(false) : null)}
+        onMouseLeave={() => (!isMobile ? handlePress(false) : null)}
+        onTap={() => (isMobile ? handlePress(true) : null)}
+        onTapCancel={() => (isMobile ? handlePress(false) : null)}
         initial={{ opacity: 0, scale: 0 }}
         animate={{ opacity: 1, scale: 0.9 }}
         onClick={onClick}

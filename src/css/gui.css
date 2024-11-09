@@ -29,6 +29,8 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+      rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 
     .strength_bar_dial_text {
       font-style: italic;
@@ -47,4 +49,77 @@
       border-radius: 100%;
     }
   }
+}
+
+.direction_input_arc {
+  width: 240px;
+  height: 160px;
+  background: linear-gradient(135deg, #000000, #2b2a2a);
+  position: absolute;
+  bottom: -19vh;
+  left: -25vw;
+
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  clip-path: polygon(50% 100%, 0% 0%, 100% 0%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @media only screen and (hover: none) and (pointer: coarse) {
+    bottom: -19vh;
+    left: -33.5dvh;
+    scale: 0.6;
+  }
+
+  .arrow-text {
+    color: white;
+    position: relative;
+    top: -30%;
+  }
+}
+
+.arrow-container {
+  position: absolute;
+  left: 50%;
+  bottom: 10%;
+  width: 4px;
+  height: 80px;
+  background: transparent;
+  transform-origin: bottom center;
+  transition: transform 0.3s ease translateX(-50%);
+  cursor: pointer;
+}
+
+.arrow-solid {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 20px;
+  background: white;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+.arrow-dotted {
+  position: absolute;
+  top: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 100px;
+  background: linear-gradient(
+    to bottom,
+    white 0%,
+    white 20%,
+    transparent 20%,
+    transparent 40%,
+    white 40%,
+    white 60%,
+    transparent 60%,
+    transparent 80%,
+    white 80%,
+    white 100%
+  );
 }
