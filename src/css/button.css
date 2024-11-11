@@ -20,19 +20,26 @@
   overflow: hidden;
   box-shadow: 0 0 20px #e74c3c, 0 0 60px #e74c3c, 0 0 100px #e74c3c;
 
-  position: absolute;
-  bottom: -42dvh;
-  left: -11.5dvh;
-
   color: white;
   /* border: 1px solid white; */
   border-radius: 1.5rem;
   /* width: 150px; */
   padding: 1rem 1.25rem;
+}
+
+.btn-game {
+  position: absolute;
+  bottom: -42dvh;
+  left: -11.5dvh;
 
   @media only screen and (hover: none) and (pointer: coarse) {
     left: -13dvh;
   }
+}
+
+.btn-game:disabled {
+  opacity: 0.5 !important;
+  cursor: default;
 }
 
 .pressed {

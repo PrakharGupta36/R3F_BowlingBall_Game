@@ -180,11 +180,18 @@ export default function GUI() {
     return "";
   };
 
+  const isIntroCompleted = GameState((state) => state.isIntroCompleted);
+
   return (
     <>
       <DirectionInput arrowRef={arrowRef} value={arrowValue()} />
       <StrengthSlider dialRef={dialRef} value={dialValue()} />
-      <Button onClick={handleButtonClick} text={getButtonLabel()} />
+      <Button
+        onClick={handleButtonClick}
+        text={getButtonLabel()}
+        addedClassName='btn-game'
+        disabled={!isIntroCompleted}
+      />
     </>
   );
 }

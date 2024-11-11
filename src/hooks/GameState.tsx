@@ -4,20 +4,26 @@ interface GameStateProps {
   clicked: boolean;
   setClicked: (value: boolean) => void;
   direction: number;
+  setDirection: (value: number) => void;
   strength: number;
+  setStrength: (value: number) => void;
+
   score: number;
+  setScore: (value: number) => void;
   booleans: {
     isDirection: boolean;
     isStrength: boolean;
     isThrow: boolean;
   };
   setBooleans: (name: string, value: boolean) => void;
-  setDirection: (value: number) => void;
-  setStrength: (value: number) => void;
-  setScore: (value: number) => void;
+  isIntroCompleted: boolean;
+  setIsIntroCompleted: (value: boolean) => void;
 }
 
 export const GameState = create<GameStateProps>((set) => ({
+  isIntroCompleted: false,
+  setIsIntroCompleted: (value: boolean) =>
+    set(() => ({ isIntroCompleted: value })),
   booleans: {
     isStrength: false,
     isDirection: false,

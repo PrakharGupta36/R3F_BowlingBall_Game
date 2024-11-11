@@ -8,9 +8,11 @@ import { isMobile } from "react-device-detect";
 interface ButtonProps {
   onClick: (e: React.MouseEvent<HTMLElement>) => void;
   text: string;
+  addedClassName: string;
+  disabled: boolean;
 }
 
-export default function Button({ onClick, text }: ButtonProps) {
+export default function Button({ onClick, text, addedClassName,disabled }: ButtonProps) {
   const [isPressed, setIsPressed] = useState(false);
   const btnRef = useRef<HTMLButtonElement>(null);
 
@@ -62,6 +64,7 @@ export default function Button({ onClick, text }: ButtonProps) {
   return (
     <div>
       <motion.button
+        disabled={disabled}
         ref={btnRef}
         onMouseDown={() => (!isMobile ? handlePress(true) : null)}
         onMouseUp={() => (!isMobile ? handlePress(false) : null)}
@@ -71,7 +74,7 @@ export default function Button({ onClick, text }: ButtonProps) {
         initial={{ opacity: 0, scale: 0 }}
         animate={{ opacity: 1, scale: 0.9 }}
         onClick={onClick}
-        className={`btn ${isPressed ? "pressed" : ""}`}
+        className={`btn ${addedClassName} ${isPressed ? "pressed" : ""}`}
       >
         {text}
         <span className='highlight' />
