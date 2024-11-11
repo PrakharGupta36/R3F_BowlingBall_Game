@@ -12,24 +12,22 @@ import Walls from "./components/Walls";
 
 export default function Scene() {
   const ballRef = useRef<RapierRigidBody>(null!);
-
+  const ballMeshRef = useRef<THREE.Mesh>(null!);
   const camera = useRef<THREE.PerspectiveCamera>(null!);
 
-  const booleans = GameState((state) => state.booleans);
-
-  const { isThrow } = booleans;
+  const clicked = GameState((state) => state.clicked);
 
   return (
     <>
-      <PerspectiveCamera position={[0, -1, -15]} ref={camera}>
+      <PerspectiveCamera position={[0, -1, -15]} ref={camera} fov={75}>
         <Lights />
         <Physics gravity={[0, -9.8, 0]}>
           <Pins />
-          <Ball ballRef={ballRef} />
+          <Ball ballRef={ballRef} ballMeshRef={ballMeshRef} />
           <Floor />
           <Walls />
         </Physics>
-        <Html> {!isThrow && <GUI />} </Html>
+        <Html>{!clicked && <GUI />}</Html>
       </PerspectiveCamera>
     </>
   );

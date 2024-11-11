@@ -162,7 +162,7 @@ export default function GUI() {
     } else if (!isDirection && !isThrow) {
       setBoolean("isDirection", true);
     } else if (!isThrow) {
-      setClicked();
+      setClicked(true);
       setBoolean("isThrow", true);
     }
   };

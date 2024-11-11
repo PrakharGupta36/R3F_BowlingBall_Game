@@ -2,9 +2,10 @@ import { create } from "zustand";
 
 interface GameStateProps {
   clicked: boolean;
-  setClicked: () => void;
+  setClicked: (value: boolean) => void;
   direction: number;
   strength: number;
+  score: number;
   booleans: {
     isDirection: boolean;
     isStrength: boolean;
@@ -13,6 +14,7 @@ interface GameStateProps {
   setBooleans: (name: string, value: boolean) => void;
   setDirection: (value: number) => void;
   setStrength: (value: number) => void;
+  setScore: (value: number) => void;
 }
 
 export const GameState = create<GameStateProps>((set) => ({
@@ -30,8 +32,10 @@ export const GameState = create<GameStateProps>((set) => ({
     })),
   direction: 0,
   strength: 0,
+  score: 0,
   clicked: false,
   setDirection: (value: number) => set(() => ({ direction: value })),
   setStrength: (value: number) => set(() => ({ strength: value })),
-  setClicked: () => set({ clicked: true }),
+  setClicked: (value: boolean) => set({ clicked: value }),
+  setScore: (value: number) => set({ score: value }),
 }));

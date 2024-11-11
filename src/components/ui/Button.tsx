@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { motion } from "framer-motion";
 import "../../css/button.css"; // Import the CSS file
 import { isMobile } from "react-device-detect";
@@ -11,40 +11,44 @@ interface ButtonProps {
 }
 
 export default function Button({ onClick, text }: ButtonProps) {
-  const [audio, setAudio] = useState<AudioContext | null>(null);
   const [isPressed, setIsPressed] = useState(false);
   const btnRef = useRef<HTMLButtonElement>(null);
 
-  useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    setAudio(new (window.AudioContext || (window as any).webkitAudioContext)());
+  const audioContextRef = useRef<AudioContext | null>(null);
+
+  const createSoftSound = useCallback(() => {
+    if (!audioContextRef.current) {
+      audioContextRef.current = new (window.AudioContext ||
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (window as any).webkitAudioContext)();
+    }
+
+    const context = audioContextRef.current;
+    const oscillator = context.createOscillator();
+    const gainNode = context.createGain();
+
+    oscillator.type = "square";
+    oscillator.frequency.setValueAtTime(150, context.currentTime);
+    oscillator.frequency.exponentialRampToValueAtTime(
+      120,
+      context.currentTime + 0.1
+    );
+
+    gainNode.gain.setValueAtTime(0.05, context.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, context.currentTime + 0.1);
+
+    oscillator.connect(gainNode);
+    gainNode.connect(context.destination);
+
+    oscillator.start();
+    oscillator.stop(context.currentTime + 0.1);
   }, []);
 
-  const playSound = useCallback(() => {
-    if (audio) {
-      const oscillator = audio.createOscillator();
-      const gainNode = audio.createGain();
-
-      oscillator.connect(gainNode);
-      gainNode.connect(audio.destination);
-
-      oscillator.type = "square";
-      oscillator.frequency.setValueAtTime(100, audio.currentTime);
-      gainNode.gain.setValueAtTime(0.8, audio.currentTime);
-
-      gainNode.gain.exponentialRampToValueAtTime(
-        0.01,
-        audio.currentTime + 0.05
-      );
-
-      oscillator.start();
-      oscillator.stop(audio.currentTime + 0.05);
-    }
-  }, [audio]);
-
   const handlePress = (pressed: boolean) => {
-    if (pressed) playSound();
     setIsPressed(pressed);
+    if (pressed) {
+      createSoftSound();
+    }
   };
 
   useEffect(() => {
@@ -67,7 +71,7 @@ export default function Button({ onClick, text }: ButtonProps) {
         initial={{ opacity: 0, scale: 0 }}
         animate={{ opacity: 1, scale: 0.9 }}
         onClick={onClick}
-        className={`btn  ${isPressed ? "pressed" : ""}`}
+        className={`btn ${isPressed ? "pressed" : ""}`}
       >
         {text}
         <span className='highlight' />
