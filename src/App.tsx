@@ -1,5 +1,5 @@
 import { Canvas } from "@react-three/fiber";
-import Scene from "./Scene";
+import Scene from "./components/Scene";
 import { Suspense } from "react";
 import { Loader } from "@react-three/drei";
 import "./css/overlay.css";

@@ -1,0 +1,28 @@
+.reset_info {
+  position: fixed;
+  background: linear-gradient(to right, #0000007a, #1d1d1d98);
+  color: white;
+  transform: translate(-50%, -225%);
+  padding-bottom: 2rem;
+  width: 100dvw;
+  height: 20dvh;
+  display: grid;
+  place-items: center;
+  font-size: 0.8rem;
+  text-align: center;
+  row-gap: 0.25rem;
+
+  h1 {
+    margin-bottom: 0;
+  }
+
+  .reset_btn {
+    width: 100%;
+    padding: 0 1rem;
+  }
+
+  .reset_btn:disabled {
+    background-color: #1d1d1d;
+    box-shadow: none;
+  }
+}

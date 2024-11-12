@@ -1,4 +1,4 @@
-import { Html, OrbitControls, useGLTF } from "@react-three/drei";
+import { Html, useGLTF } from "@react-three/drei";
 import {
   RapierRigidBody,
   RigidBody,
@@ -7,7 +7,7 @@ import {
 import { GroupProps, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { GLTF } from "three-stdlib";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 import { GameState } from "../hooks/GameState";
 
@@ -33,7 +33,7 @@ export function Pins(props: PinsProps) {
 
   const pinsData = GameState((state) => state.pinsData);
 
-  // const setPinsData = GameState((state) => state.setPinsData);
+  const setPinsData = GameState((state) => state.setPinsData);
 
   // const booleans = GameState((state) => state.booleans);
 
@@ -85,30 +85,27 @@ export function Pins(props: PinsProps) {
     });
   });
 
-  // useEffect(() => {
-  //   if (isThrow) {
-  //     setTimeout(() => {
-  //       fallenPinIds.forEach((pinId) => {
-  //         setPinsData(pinId); // Mark pin as fallen
-  //       });
-  //     }, 5000); // 5-second delay
-  //   }
-  // }, [fallenPinIds, isThrow, setPinsData, pinsData]);
-
-  useEffect(() => {
-    console.log(fallenPinIds);
-  }, [fallenPinIds]);
+  useFrame(() => {
+    setTimeout(() => {
+      fallenPinIds.map((e) => {
+        setPinsData(e, "positionY", -100);
+      });
+    }, 1000);
+  });
 
   return (
     <group {...props} dispose={null} position={[0, -1.15, -14]}>
-      <OrbitControls />
       {pinsData.map((pin, index) => {
+        const position = pin.position();
+
         return !pin.isFallen ? (
           <RigidBody
             name={`Pin-${pin.id}`}
             key={pin.id}
             ref={(ref) => (pinRefs.current[index] = ref)}
             mass={0.5}
+            position={position as [number, number, number]}
+            // rotation={pin.rotation as [number, number, number]}
             density={5}
             restitution={0.005}
             scale={7}
@@ -121,17 +118,17 @@ export function Pins(props: PinsProps) {
               receiveShadow
               geometry={nodes[pin.name].geometry}
               material={materials.TOY0003_V2_Textures}
-              position={pin.position as [number, number, number]}
+              position={position as [number, number, number]}
               rotation={pin.rotation as [number, number, number]}
             />
             <Html
               center
               position={
-                [
-                  pin.position[0] + 0.01,
-                  0.025 * pin.id + 0.3,
-                  pin.position[2],
-                ] as [number, number, number]
+                [position[0] + 0.01, 0.025 * pin.id + 0.3, position[2]] as [
+                  number,
+                  number,
+                  number
+                ]
               }
             >
               <span

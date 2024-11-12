@@ -17,7 +17,7 @@ export default function Floor() {
         rotation={[-Math.PI / 2, 0, 0]}
         position={[0, -1.06, 0]}
       >
-        <planeGeometry args={[13, 40]} />
+        <planeGeometry args={[20, 40]} />
         <meshPhysicalMaterial
           map={diffuse}
           displacementMap={displacement}

@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useGLTF } from "@react-three/drei";
 import {
   RapierRigidBody,
   RigidBody,
   RigidBodyProps,
 } from "@react-three/rapier";
-import { TextureLoader } from "three";
 import * as THREE from "three";
 import { GLTF } from "three-stdlib";
 import { GameState } from "../hooks/GameState";
@@ -24,7 +23,8 @@ export default function Ball({ ballRef, ballMeshRef, ...props }: ModelProps) {
   const { nodes, materials } = useGLTF("/models/Ball.glb") as BallGLTF;
   const ballMaterial = materials.ball as THREE.MeshStandardMaterial;
   const [ballRollingSound] = useState(new Audio("/sounds/Ball_Rolling.mp3"));
-  const [key, setKey] = useState(0); // Key for forcing RigidBody remount
+  const [key, setKey] = useState(0);
+  const timerRef = useRef<NodeJS.Timeout>();
 
   const clicked = GameState((state) => state.clicked);
   const strength = GameState((state) => state.strength);
@@ -33,8 +33,9 @@ export default function Ball({ ballRef, ballMeshRef, ...props }: ModelProps) {
   const { isThrow } = booleans;
   const setClicked = GameState((state) => state.setClicked);
   const setBoolean = GameState((state) => state.setBooleans);
+  const ballResetTime = GameState((state) => state.ballResetTime);
+  const [count, setCount] = useState(ballResetTime);
 
-  // Handle ball impulse
   useEffect(() => {
     if (clicked && ballRef.current) {
       ballRef.current.applyImpulse({ x: direction, y: 0, z: strength }, true);
@@ -42,27 +43,48 @@ export default function Ball({ ballRef, ballMeshRef, ...props }: ModelProps) {
     }
   }, [ballRef, ballRollingSound, clicked, direction, strength]);
 
-  // Handle reset
+  useEffect(() => {
+    console.log({ countBall: count });
+  }, [count]);
+
   useEffect(() => {
     if (isThrow) {
-      setTimeout(() => {
-        // Reset game state
-        setClicked(false);
-        setBoolean("isStrength", false);
-        setBoolean("isDirection", false);
-        setBoolean("isThrow", false);
+      setCount(ballResetTime);
 
-        // Force RigidBody remount
-        setKey((prev) => prev + 1);
-      }, 5000);
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
+
+      timerRef.current = setInterval(() => {
+        setCount((prev) => {
+          if (prev <= 1) {
+            if (timerRef.current) clearInterval(timerRef.current);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+
+      return () => {
+        if (timerRef.current) {
+          clearInterval(timerRef.current);
+        }
+      };
     }
-  }, [isThrow, setClicked, setBoolean]);
+  }, [isThrow, ballResetTime]);
 
-  // Handle texture loading
   useEffect(() => {
-    const textureLoader = new TextureLoader();
-    const normalMap = textureLoader.load("/floor_textures/normal_1k.png");
-    ballMaterial.normalMap = normalMap;
+    if (count === 0 && isThrow) {
+      setClicked(false);
+      setBoolean("isStrength", false);
+      setBoolean("isDirection", false);
+      setBoolean("isThrow", false);
+      setKey((prev) => prev + 1);
+      setCount(ballResetTime);
+    }
+  }, [count, isThrow, ballResetTime, setClicked, setBoolean]);
+
+  useEffect(() => {
     ballMaterial.roughness = 0.6;
     ballMaterial.metalness = 0.1;
   }, [ballMaterial]);
@@ -70,15 +92,15 @@ export default function Ball({ ballRef, ballMeshRef, ...props }: ModelProps) {
   return (
     <>
       <RigidBody
-        key={key} // Force remount when key changes
+        key={key}
         scale={0.055}
         name='Ball'
         ref={ballRef}
         colliders='ball'
         position={[0, -0.4, 16]}
-        friction={20} // Adjust for realistic rolling
-        mass={15} // Increase mass to make the ball feel heavier
-        restitution={0.01} // Reduce bounce
+        friction={20}
+        mass={15}
+        restitution={0.01}
         {...props}
       >
         <mesh

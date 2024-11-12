@@ -39,23 +39,24 @@ export default function Button({
   }, [isPressed]);
 
   return (
-    <div>
+    <motion.div
+      onMouseDown={() => (!isMobile ? handlePress(true) : null)}
+      onMouseUp={() => (!isMobile ? handlePress(false) : null)}
+      onMouseLeave={() => (!isMobile ? handlePress(false) : null)}
+      onTap={() => (isMobile ? handlePress(true) : null)}
+      onTapCancel={() => (isMobile ? handlePress(false) : null)}
+      onClick={onClick}
+    >
       <motion.button
         disabled={disabled}
         ref={btnRef}
-        onMouseDown={() => (!isMobile ? handlePress(true) : null)}
-        onMouseUp={() => (!isMobile ? handlePress(false) : null)}
-        onMouseLeave={() => (!isMobile ? handlePress(false) : null)}
-        onTap={() => (isMobile ? handlePress(true) : null)}
-        onTapCancel={() => (isMobile ? handlePress(false) : null)}
         initial={{ opacity: 0, scale: 1 }}
         animate={{ opacity: 1, scale: isPressed ? 0.1 : 1 }}
-        onClick={onClick}
         className={`btn ${addedClassName} ${isPressed ? "pressed" : ""}`}
       >
         {text}
         <span className='highlight' />
       </motion.button>
-    </div>
+    </motion.div>
   );
 }

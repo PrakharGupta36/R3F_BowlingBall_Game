@@ -12,17 +12,6 @@
   z-index: 1000;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-a {
-  font-family: "Press Start 2P", cursive !important;
-}
-
 .overlay_container {
   display: grid;
   place-items: center;
@@ -44,6 +33,7 @@ a {
 
   h1 {
     font-size: 1rem;
+    font-family: "Press Start 2P", cursive;
   }
   .overlay_container_inner {
     display: grid;

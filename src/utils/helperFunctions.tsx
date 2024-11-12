@@ -32,8 +32,6 @@ function submitValueDirection(
     setDirection(3);
   } else if (value > 24 && value <= 28) {
     setDirection(3.5);
-  } else {
-    console.log("Value is out of range");
   }
 }
 
@@ -64,4 +62,4 @@ function submitValueStrength(
   }
 }
 
-export {submitValueDirection,submitValueStrength}
+export { submitValueDirection, submitValueStrength };

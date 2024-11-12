@@ -3,7 +3,8 @@ import { GameState } from "../../hooks/GameState";
 import Button from "../ui/Button";
 import DirectionInput from "./components/DirectionInput";
 import StrengthSlider from "./components/StrengthSlider";
-import "../../css/gui.css"
+import "../../css/gui.css";
+import PinStatus from "./components/PinStatus";
 
 export default function GUI() {
   const setClicked = GameState((state) => state.setClicked);
@@ -60,6 +61,7 @@ export default function GUI() {
     <>
       <DirectionInput arrowRef={arrowRef} value={arrowValue()} />
       <StrengthSlider dialRef={dialRef} value={dialValue()} />
+      <PinStatus />
       <Button
         onClick={handleButtonClick}
         text={getButtonLabel()}
