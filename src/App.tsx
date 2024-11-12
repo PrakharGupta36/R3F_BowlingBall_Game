@@ -6,7 +6,13 @@ import "./css/overlay.css";
 import Button from "./components/ui/Button";
 import { GameState } from "./hooks/GameState";
 import { motion, AnimatePresence } from "framer-motion";
-// import { OrbitControls} from "@react-three/drei";
+
+import {
+  Bloom,
+  EffectComposer,
+  Noise,
+  Vignette,
+} from "@react-three/postprocessing";
 
 function Overlay() {
   const setIsIntroCompleted = GameState((state) => state.setIsIntroCompleted);
@@ -22,6 +28,16 @@ function Overlay() {
         />
       </div>
     </div>
+  );
+}
+
+function PostProcessing() {
+  return (
+    <EffectComposer multisampling={0}>
+      <Bloom luminanceThreshold={0} luminanceSmoothing={0.4} height={1000} />
+      <Noise opacity={0.05} />
+      <Vignette eskil={false} offset={0.05} darkness={1.1} />
+    </EffectComposer>
   );
 }
 
@@ -51,9 +67,18 @@ export default function App() {
         style={{ height: "100vh", width: "100vw" }}
       >
         <Suspense fallback={<Loader />}>
-          <Canvas shadows>
+          <Canvas
+            shadows
+            dpr={2}
+            gl={{
+              antialias: false,
+              stencil: false,
+              depth: true,
+              powerPreference: "high-performance",
+            }}
+          >
+            <PostProcessing />
             {isIntroCompleted && <Scene />}
-            {/* <OrbitControls /> */}
           </Canvas>
         </Suspense>
       </motion.div>

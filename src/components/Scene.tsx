@@ -4,7 +4,7 @@ import Floor from "./Floor";
 import Lights from "./Lights";
 import { Pins } from "./Pins";
 import { useEffect, useRef, useState } from "react";
-import { Html, PerspectiveCamera } from "@react-three/drei";
+import { Html, PerspectiveCamera, Preload } from "@react-three/drei";
 import GUI from "./GUI/GUI";
 import * as THREE from "three";
 import { GameState } from "../hooks/GameState";
@@ -76,6 +76,7 @@ export default function Scene() {
   return (
     <>
       <PerspectiveCamera position={[0, -1, -15]} ref={camera} fov={75}>
+        <Preload all />
         <Lights />
         <Physics gravity={[0, -9.8, 0]}>
           <Pins />
