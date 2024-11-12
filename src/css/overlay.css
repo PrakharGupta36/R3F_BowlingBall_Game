@@ -5,7 +5,8 @@
   height: 100%;
   margin: 0;
   padding: 0;
-  background-color: rgba(0, 0, 0, 0.8) !important;
+  /* background: url("/wallpaper.png") !important; */
+
   position: absolute;
   color: white;
   z-index: 1000;
@@ -26,7 +27,21 @@ a {
   display: grid;
   place-items: center;
   height: 100vh;
-  background-color: black;
+
+  /* Background image */
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("/images/wallpaper.png") no-repeat center center fixed;
+    background-size: cover;
+    opacity: 0.1; /* Adjust opacity here */
+    z-index: -1; /* Place behind content */
+  }
+
   h1 {
     font-size: 1rem;
   }

@@ -11,7 +11,7 @@ export default function Floor() {
   ]);
 
   return (
-    <RigidBody type='fixed' contactSkin={0}>
+    <RigidBody type='fixed' contactSkin={0} name="Floor">
       <mesh
         receiveShadow
         rotation={[-Math.PI / 2, 0, 0]}

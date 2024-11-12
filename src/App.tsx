@@ -1,11 +1,12 @@
 import { Canvas } from "@react-three/fiber";
 import Scene from "./Scene";
-import { Suspense, useEffect } from "react";
+import { Suspense } from "react";
 import { Loader } from "@react-three/drei";
 import "./css/overlay.css";
 import Button from "./components/ui/Button";
 import { GameState } from "./hooks/GameState";
 import { motion, AnimatePresence } from "framer-motion";
+// import { OrbitControls} from "@react-three/drei";
 
 function Overlay() {
   const setIsIntroCompleted = GameState((state) => state.setIsIntroCompleted);
@@ -27,10 +28,6 @@ function Overlay() {
 export default function App() {
   const isIntroCompleted = GameState((state) => state.isIntroCompleted);
 
-  useEffect(() => {
-    console.log(isIntroCompleted);
-  }, [isIntroCompleted]);
-
   return (
     <>
       <AnimatePresence>
@@ -48,13 +45,16 @@ export default function App() {
       </AnimatePresence>
 
       <motion.div
-        initial={{ opacity: 0.5 }}
-        animate={{ opacity: isIntroCompleted ? 1 : 0.5 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isIntroCompleted ? 1 : 0 }}
         transition={{ duration: 0.5 }}
         style={{ height: "100vh", width: "100vw" }}
       >
         <Suspense fallback={<Loader />}>
-          <Canvas>{isIntroCompleted && <Scene />}</Canvas>
+          <Canvas shadows>
+            {isIntroCompleted && <Scene />}
+            {/* <OrbitControls /> */}
+          </Canvas>
         </Suspense>
       </motion.div>
     </>

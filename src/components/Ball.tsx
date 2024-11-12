@@ -21,9 +21,9 @@ interface ModelProps extends RigidBodyProps {
 }
 
 export default function Ball({ ballRef, ballMeshRef, ...props }: ModelProps) {
-  const { nodes, materials } = useGLTF("/Ball.glb") as BallGLTF;
+  const { nodes, materials } = useGLTF("/models/Ball.glb") as BallGLTF;
   const ballMaterial = materials.ball as THREE.MeshStandardMaterial;
-  const [ballRollingSound] = useState(new Audio("/Ball_Rolling.mp3"));
+  const [ballRollingSound] = useState(new Audio("/sounds/Ball_Rolling.mp3"));
   const [key, setKey] = useState(0); // Key for forcing RigidBody remount
 
   const clicked = GameState((state) => state.clicked);
@@ -72,12 +72,13 @@ export default function Ball({ ballRef, ballMeshRef, ...props }: ModelProps) {
       <RigidBody
         key={key} // Force remount when key changes
         scale={0.055}
+        name='Ball'
         ref={ballRef}
         colliders='ball'
         position={[0, -0.4, 16]}
-        friction={100}
-        mass={2}
-        restitution={0}
+        friction={20} // Adjust for realistic rolling
+        mass={15} // Increase mass to make the ball feel heavier
+        restitution={0.01} // Reduce bounce
         {...props}
       >
         <mesh
@@ -99,3 +100,5 @@ export default function Ball({ ballRef, ballMeshRef, ...props }: ModelProps) {
     </>
   );
 }
+
+useGLTF.preload("/models/Ball.glb");

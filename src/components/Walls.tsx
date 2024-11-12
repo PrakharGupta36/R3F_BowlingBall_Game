@@ -31,12 +31,12 @@ export default function Walls() {
       position: [1, 9, 0],
       size: [20, 40],
     },
-    {
-      name: "wall-behind",
-      rotation: [0, 0, 0],
-      position: [0, 0, -20],
-      size: [20, 20],
-    },
+    // {
+    //   name: "wall-behind",
+    //   rotation: [0, 0, 0],
+    //   position: [0, 0, -20],
+    //   size: [20, 20],
+    // },
   ];
 
   return (

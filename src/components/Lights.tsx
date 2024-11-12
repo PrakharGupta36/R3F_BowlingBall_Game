@@ -12,7 +12,8 @@ export default function Lights() {
       <ambientLight intensity={2} />
       {lightPositions.map((position, index) => (
         <pointLight
-          key={index}
+          key={ index }
+          castShadow
           position={position as [number, number, number]}
           intensity={INTENSITY}
         />

@@ -17,7 +17,7 @@
 
   @media only screen and (hover: none) and (pointer: coarse) {
     left: 20.5dvh;
-  }
+}
 
   .strength_bar_dial {
     width: 20px;

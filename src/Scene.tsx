@@ -5,7 +5,7 @@ import Lights from "./components/Lights";
 import { Pins } from "./components/Pins";
 import { useRef } from "react";
 import { Html, PerspectiveCamera } from "@react-three/drei";
-import GUI from "./components/GUI";
+import GUI from "./components/GUI/GUI";
 import * as THREE from "three";
 import { GameState } from "./hooks/GameState";
 import Walls from "./components/Walls";
