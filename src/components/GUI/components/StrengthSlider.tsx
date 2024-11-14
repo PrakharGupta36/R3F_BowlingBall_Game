@@ -31,7 +31,7 @@ export default function StrengthSlider({
       controls.start({
         top: "96%",
         transition: {
-          duration: 0.5,
+          duration: 0.8,
           repeat: Infinity,
           repeatType: "reverse",
           type: "tween",

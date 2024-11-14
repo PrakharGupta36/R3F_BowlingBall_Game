@@ -18,7 +18,7 @@
   transition: all 0.05s ease;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 0 20px #e74c3c, 0 0 60px #e74c3c, 0 0 100px #e74c3c;
+  box-shadow: 0 0 10px #e74c3c, 0 0 10px #e74c3c, 0 0 0px #e74c3c;
 
   color: white;
   /* border: 1px solid white; */

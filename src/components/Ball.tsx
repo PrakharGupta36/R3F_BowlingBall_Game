@@ -19,12 +19,19 @@ interface ModelProps extends RigidBodyProps {
   ballMeshRef: React.RefObject<THREE.Mesh>;
 }
 
-export default function Ball({ ballRef, ballMeshRef, ...props }: ModelProps) {
+export default function Ball({
+  ballRef,
+  ballMeshRef,
+
+  ...props
+}: ModelProps) {
   const { nodes, materials } = useGLTF("/models/Ball.glb") as BallGLTF;
   const ballMaterial = materials.ball as THREE.MeshStandardMaterial;
   const [ballRollingSound] = useState(new Audio("/sounds/Ball_Rolling.mp3"));
-  const [key, setKey] = useState(0);
+  // const [key, setKey] = useState(0);
   const timerRef = useRef<NodeJS.Timeout>();
+
+  const [key, setKey] = useState(0);
 
   const clicked = GameState((state) => state.clicked);
   const strength = GameState((state) => state.strength);
@@ -35,6 +42,7 @@ export default function Ball({ ballRef, ballMeshRef, ...props }: ModelProps) {
   const setBoolean = GameState((state) => state.setBooleans);
   const ballResetTime = GameState((state) => state.ballResetTime);
   const [count, setCount] = useState(ballResetTime);
+  const setTries = GameState((state) => state.setTries);
 
   useEffect(() => {
     if (clicked && ballRef.current) {
@@ -42,10 +50,6 @@ export default function Ball({ ballRef, ballMeshRef, ...props }: ModelProps) {
       ballRollingSound.play();
     }
   }, [ballRef, ballRollingSound, clicked, direction, strength]);
-
-  useEffect(() => {
-    console.log({ countBall: count });
-  }, [count]);
 
   useEffect(() => {
     if (isThrow) {
@@ -80,12 +84,13 @@ export default function Ball({ ballRef, ballMeshRef, ...props }: ModelProps) {
       setBoolean("isDirection", false);
       setBoolean("isThrow", false);
       setKey((prev) => prev + 1);
+      setTries();
       setCount(ballResetTime);
     }
-  }, [count, isThrow, ballResetTime, setClicked, setBoolean]);
+  }, [count, isThrow, ballResetTime, setClicked, setBoolean, setKey, setTries]);
 
   useEffect(() => {
-    ballMaterial.roughness = 0.6;
+    ballMaterial.roughness = 0.1;
     ballMaterial.metalness = 0.1;
   }, [ballMaterial]);
 
@@ -100,7 +105,7 @@ export default function Ball({ ballRef, ballMeshRef, ...props }: ModelProps) {
         position={[0, -0.4, 16]}
         friction={20}
         mass={15}
-        restitution={0.01}
+        restitution={0.0000001}
         {...props}
       >
         <mesh
@@ -111,14 +116,6 @@ export default function Ball({ ballRef, ballMeshRef, ...props }: ModelProps) {
           material={ballMaterial}
         />
       </RigidBody>
-
-      <pointLight
-        position={[0.75, 1, 16]}
-        intensity={20}
-        distance={10}
-        color={new THREE.Color(0xffffff)}
-        castShadow
-      />
     </>
   );
 }

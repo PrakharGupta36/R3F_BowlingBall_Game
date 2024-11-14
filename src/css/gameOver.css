@@ -1,0 +1,25 @@
+.game_over {
+  width: 100dvw;
+  height: 100dvh;
+  color: white;
+  background: linear-gradient(45deg, #1d1d1d, #000);
+  display: grid;
+  place-items: center;
+
+  .game_over_inner {
+    display: grid;
+    place-items: center;
+    gap: 2rem;
+    text-align: center;
+
+    h1 {
+      font-family: "Press Start 2P", cursive;
+      /* margin: 0; */
+    }
+
+    p{
+      margin: 0;
+      font-style: italic;
+    }
+  }
+}

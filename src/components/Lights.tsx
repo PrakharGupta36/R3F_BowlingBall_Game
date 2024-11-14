@@ -9,7 +9,7 @@ export default function Lights() {
 
   return (
     <>
-      <ambientLight intensity={2} />
+      <ambientLight intensity={3} />
       {lightPositions.map((position, index) => (
         <pointLight
           key={ index }

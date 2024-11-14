@@ -19,7 +19,7 @@ export default function Button({
   disabled,
 }: ButtonProps) {
   const [isPressed, setIsPressed] = useState(false);
-  const btnRef = useRef<HTMLButtonElement>(null);
+  const btnRef = useRef<HTMLDivElement>(null);
 
   const [clickSound] = useState(new Audio("/sounds/Click.mp3"));
 
@@ -46,10 +46,10 @@ export default function Button({
       onTap={() => (isMobile ? handlePress(true) : null)}
       onTapCancel={() => (isMobile ? handlePress(false) : null)}
       onClick={onClick}
+      ref={btnRef}
     >
       <motion.button
         disabled={disabled}
-        ref={btnRef}
         initial={{ opacity: 0, scale: 1 }}
         animate={{ opacity: 1, scale: isPressed ? 0.1 : 1 }}
         className={`btn ${addedClassName} ${isPressed ? "pressed" : ""}`}

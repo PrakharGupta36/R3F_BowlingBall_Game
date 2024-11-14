@@ -25,15 +25,11 @@ export default function Scene() {
     }
   }, [clicked]);
 
-  function RestartInfo() {
+  function BallReset() {
     const setBallResetTime = GameState((state) => state.setBallResetTime);
     const ballResetTime = GameState((state) => state.ballResetTime);
     const [count, setCount] = useState(ballResetTime);
     const timerRef = useRef<NodeJS.Timeout>();
-
-    useEffect(() => {
-      console.log({ countInfo: count });
-    }, [count]);
 
     useEffect(() => {
       timerRef.current = setInterval(() => {
@@ -63,12 +59,14 @@ export default function Scene() {
     return (
       <div className='reset_info'>
         <h1> Restarting in {count} sec </h1>
-        <Button
-          disabled={count > 10}
-          onClick={handleWaitMore}
-          text={"Wait 10 seconds more"}
-          addedClassName={"reset_btn"}
-        />
+        <div className='reset_info_btn'>
+          <Button
+            disabled={count > 10}
+            onClick={handleWaitMore}
+            text={"Wait 10 seconds more"}
+            addedClassName={"reset_btn"}
+          />
+        </div>
       </div>
     );
   }
@@ -84,7 +82,8 @@ export default function Scene() {
           <Floor />
           <Walls />
         </Physics>
-        <Html>{clicked ? showRestart && <RestartInfo /> : <GUI />}</Html>
+
+        <Html>{clicked ? showRestart && <BallReset /> : <GUI />}</Html>
       </PerspectiveCamera>
     </>
   );

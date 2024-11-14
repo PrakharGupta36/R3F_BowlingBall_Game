@@ -1,87 +1,94 @@
 import { Canvas } from "@react-three/fiber";
 import Scene from "./components/Scene";
-import { Suspense } from "react";
+import { Suspense, useState, useCallback, memo } from "react";
 import { Loader } from "@react-three/drei";
 import "./css/overlay.css";
-import Button from "./components/ui/Button";
 import { GameState } from "./hooks/GameState";
 import { motion, AnimatePresence } from "framer-motion";
+import Overlay from "./components/Overlay";
+import Confetti from "react-confetti";
+import useWindowSize from "react-use/lib/useWindowSize";
+import GameOver from "./components/GameOver";
+import TimeTracker from "./utils/TimeTracker";
 
-import {
-  Bloom,
-  EffectComposer,
-  Noise,
-  Vignette,
-} from "@react-three/postprocessing";
+const OverlayComponent = memo(() => (
+  /* Intro Overlay */
+  <AnimatePresence>
+    <motion.div
+      initial={{ opacity: 1 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+      className='overlay'
+    >
+      <Overlay />
+    </motion.div>
+  </AnimatePresence>
+));
 
-function Overlay() {
-  const setIsIntroCompleted = GameState((state) => state.setIsIntroCompleted);
-  return (
-    <div className='overlay_container'>
-      <div className='overlay_container_inner'>
-        <h1>R3F Bowling Ball Game</h1>
-        <Button
-          onClick={() => setIsIntroCompleted(true)}
-          text='Enter'
-          addedClassName=''
-          disabled={false}
-        />
-      </div>
-    </div>
-  );
-}
+const CanvasComponent = memo(
+  /* Canvas shows up when intro is completed */
+  ({ isIntroCompleted }: { isIntroCompleted: boolean }) => (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: isIntroCompleted ? 1 : 0 }}
+      transition={{ duration: 0.5 }}
+      style={{ height: "100vh", width: "100vw" }}
+    >
+      <Suspense fallback={<Loader />}>
+        <Canvas
+          shadows
+          dpr={1}
+          gl={{
+            antialias: true,
+            stencil: false,
+            depth: true,
+            powerPreference: "high-performance",
+          }}
+        >
+          {isIntroCompleted && <Scene />}
+        </Canvas>
+      </Suspense>
+    </motion.div>
+  )
+);
 
-function PostProcessing() {
-  return (
-    <EffectComposer multisampling={0}>
-      <Bloom luminanceThreshold={0} luminanceSmoothing={0.4} height={1000} />
-      <Noise opacity={0.05} />
-      <Vignette eskil={false} offset={0.05} darkness={1.1} />
-    </EffectComposer>
-  );
-}
+export default function App(): JSX.Element {
+  const [minutes, setMinutes] = useState<number>(0);
+  const [seconds, setSeconds] = useState<number>(0);
+  const { width, height } = useWindowSize();
 
-export default function App() {
+  // I'm getting an infinite loop error whenever I destructure variables from GameState, not gonna solve it, just calling them individually
   const isIntroCompleted = GameState((state) => state.isIntroCompleted);
+  const allPinsDown = GameState((set) => set.allPinsDown);
+
+  const handleTimeChange = useCallback((min: number, sec: number): void => {
+    setMinutes(min);
+    setSeconds(sec);
+  }, []);
 
   return (
     <>
-      <AnimatePresence>
-        {!isIntroCompleted && (
-          <motion.div
-            initial={{ opacity: 1 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-            className='overlay'
-          >
-            <Overlay />
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: isIntroCompleted ? 1 : 0 }}
-        transition={{ duration: 0.5 }}
-        style={{ height: "100vh", width: "100vw" }}
-      >
-        <Suspense fallback={<Loader />}>
-          <Canvas
-            shadows
-            dpr={2}
-            gl={{
-              antialias: false,
-              stencil: false,
-              depth: true,
-              powerPreference: "high-performance",
-            }}
-          >
-            <PostProcessing />
-            {isIntroCompleted && <Scene />}
-          </Canvas>
-        </Suspense>
-      </motion.div>
+      <TimeTracker onTimeChange={handleTimeChange} />
+      {allPinsDown ? (
+        <>
+          <GameOver minutes={minutes} seconds={seconds} />
+          <Confetti
+            width={width}
+            height={height}
+            recycle={false}
+            numberOfPieces={1000}
+          />
+        </>
+      ) : (
+        <>
+          {!isIntroCompleted ? (
+            <OverlayComponent />
+          ) : (
+            <CanvasComponent isIntroCompleted={isIntroCompleted} />
+          )}
+        </>
+      )}
     </>
   );
 }

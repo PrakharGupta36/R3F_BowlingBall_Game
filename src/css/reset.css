@@ -25,4 +25,9 @@
     background-color: #1d1d1d;
     box-shadow: none;
   }
+
+  .reset_info_btn{
+    display: flex;
+    gap: 2rem;
+  }
 }

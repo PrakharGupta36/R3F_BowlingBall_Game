@@ -40,23 +40,23 @@ function submitValueStrength(
   setStrength: (value: number) => void
 ) {
   if (value >= 0 && value <= 10) {
-    setStrength(-15);
-  } else if (value > 10 && value <= 20) {
-    setStrength(-20);
-  } else if (value > 20 && value <= 30) {
     setStrength(-25);
-  } else if (value > 30 && value <= 40) {
-    setStrength(-27);
-  } else if (value > 40 && value <= 50) {
+  } else if (value > 10 && value <= 20) {
     setStrength(-30);
-  } else if (value > 50 && value <= 60) {
-    setStrength(-33);
-  } else if (value > 60 && value <= 70) {
+  } else if (value > 20 && value <= 30) {
     setStrength(-35);
-  } else if (value > 70 && value <= 80) {
+  } else if (value > 30 && value <= 40) {
     setStrength(-40);
+  } else if (value > 40 && value <= 50) {
+    setStrength(-45);
+  } else if (value > 50 && value <= 60) {
+    setStrength(-50);
+  } else if (value > 60 && value <= 70) {
+    setStrength(-55);
+  } else if (value > 70 && value <= 80) {
+    setStrength(-60);
   } else if (value > 80 && value <= 90) {
-    setStrength(-43);
+    setStrength(-65);
   } else {
     setStrength(-47);
   }

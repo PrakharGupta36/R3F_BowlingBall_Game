@@ -30,9 +30,8 @@ interface GameStateProps {
     name: string;
     positionY: number;
     position: () => [number, number, number];
-    rotation: [number, number, number];
+    rotation: number[];
     id: number;
-    isFallen: boolean;
   }[];
 
   setPinsData: (
@@ -40,6 +39,12 @@ interface GameStateProps {
     key: string,
     value: string | [number, number, number] | number | boolean
   ) => void;
+
+  allPinsDown: boolean;
+  setAllPinsDown: (value: boolean) => void;
+
+  tries: number;
+  setTries: () => void;
 }
 
 export const GameState = create<GameStateProps>((set) => ({
@@ -83,111 +88,91 @@ export const GameState = create<GameStateProps>((set) => ({
       name: "#TOY0003_V2_Pin001_#TOY0003_V2_Textures_0",
       positionY: 0.124,
       position: function (): [number, number, number] {
-        return [0, this.positionY, 0.719];
+        return [0, this.positionY, 0.55]; // Closer on Z
       },
-      // position: [0, 0.124, 0.719],
       rotation: [-Math.PI / 2, 0, 0],
       id: 1,
-      isFallen: false,
     },
     {
       name: "#TOY0003_V2_Pin002_#TOY0003_V2_Textures_0",
       positionY: 0.124,
       position: function (): [number, number, number] {
-        return [-0.15, this.positionY, 0.419];
+        return [-0.1, this.positionY, 0.3]; // Closer on both X and Z
       },
-      // position: [-0.15, 0.124, 0.419],
       rotation: [-Math.PI / 2, 0, 0],
       id: 2,
-      isFallen: false,
     },
     {
       name: "#TOY0003_V2_Pin003_#TOY0003_V2_Textures_0",
       positionY: 0.124,
       position: function (): [number, number, number] {
-        return [0.15, this.positionY, 0.419];
+        return [0.1, this.positionY, 0.3]; // Closer on both X and Z
       },
-      // position: [0.15, 0.124, 0.419],
       rotation: [-Math.PI / 2, 0, 0],
       id: 3,
-      isFallen: false,
     },
     {
       name: "#TOY0003_V2_Pin004_#TOY0003_V2_Textures_0",
       positionY: 0.124,
       position: function (): [number, number, number] {
-        return [-0.3, this.positionY, 0.12];
+        return [-0.2, this.positionY, 0.05]; // Closer on Z
       },
-      // position: [-0.3, 0.124, 0.12],
       rotation: [-Math.PI / 2, 0, 0],
       id: 4,
-      isFallen: false,
     },
     {
       name: "#TOY0003_V2_Pin005_#TOY0003_V2_Textures_0",
       positionY: 0.124,
       position: function (): [number, number, number] {
-        return [0, this.positionY, 0.12];
+        return [0, this.positionY, 0.05]; // Closer on Z
       },
-      // position: [0, 0.124, 0.12],
       rotation: [-Math.PI / 2, 0, 0],
       id: 5,
-      isFallen: false,
     },
     {
       name: "#TOY0003_V2_Pin006_#TOY0003_V2_Textures_0",
       positionY: 0.124,
       position: function (): [number, number, number] {
-        return [0.3, this.positionY, 0.12];
+        return [0.2, this.positionY, 0.05]; // Closer on Z
       },
-      // position: [0.3, 0.124, 0.12],
       rotation: [-Math.PI / 2, 0, 0],
       id: 6,
-      isFallen: false,
     },
     {
       name: "#TOY0003_V2_Pin007_#TOY0003_V2_Textures_0",
       positionY: 0.124,
       position: function (): [number, number, number] {
-        return [-0.449, this.positionY, -0.18];
+        return [-0.3, this.positionY, -0.1]; // Closer on Z
       },
-      // position: [-0.449, 0.124, -0.18],
       rotation: [-Math.PI / 2, 0, 0],
       id: 7,
-      isFallen: false,
     },
     {
       name: "#TOY0003_V2_Pin008_#TOY0003_V2_Textures_0",
       positionY: 0.124,
       position: function (): [number, number, number] {
-        return [-0.15, this.positionY, -0.18];
+        return [-0.1, this.positionY, -0.1]; // Closer on both X and Z
       },
-      // position: [-0.15, 0.124, -0.18],
       rotation: [-Math.PI / 2, 0, 0],
       id: 8,
-      isFallen: false,
     },
     {
       name: "#TOY0003_V2_Pin009_#TOY0003_V2_Textures_0",
       positionY: 0.124,
       position: function (): [number, number, number] {
-        return [0.15, this.positionY, -0.18];
+        return [0.1, this.positionY, -0.1]; // Closer on both X and Z
       },
-      // position: [0.15, 0.124, -0.18],
       rotation: [-Math.PI / 2, 0, 0],
       id: 9,
-      isFallen: false,
     },
     {
       name: "#TOY0003_V2_Pin010_#TOY0003_V2_Textures_0",
       positionY: 0.124,
       position: function (): [number, number, number] {
-        return [0.449, this.positionY, -0.18];
+        return [0.3, this.positionY, -0.1]; // Closer on Z
       },
-      // position: [0.449, 0.124, -0.18],
       rotation: [-Math.PI / 2, 0, 0],
       id: 10,
-      isFallen: false,
     },
   ],
 
@@ -205,4 +190,10 @@ export const GameState = create<GameStateProps>((set) => ({
         pinsData,
       };
     }),
+
+  allPinsDown: false,
+  setAllPinsDown: (value: boolean) => set(() => ({ allPinsDown: value })),
+
+  tries: 0,
+  setTries: () => set((state) => ({ tries: state.tries + 1 })),
 }));
