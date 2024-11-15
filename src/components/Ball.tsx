@@ -28,7 +28,6 @@ export default function Ball({
   const { nodes, materials } = useGLTF("/models/Ball.glb") as BallGLTF;
   const ballMaterial = materials.ball as THREE.MeshStandardMaterial;
   const [ballRollingSound] = useState(new Audio("/sounds/Ball_Rolling.mp3"));
-  // const [key, setKey] = useState(0);
   const timerRef = useRef<NodeJS.Timeout>();
 
   const [key, setKey] = useState(0);
@@ -47,6 +46,7 @@ export default function Ball({
   useEffect(() => {
     if (clicked && ballRef.current) {
       ballRef.current.applyImpulse({ x: direction, y: 0, z: strength }, true);
+      ballRollingSound.volume = 1;
       ballRollingSound.play();
     }
   }, [ballRef, ballRollingSound, clicked, direction, strength]);
@@ -98,7 +98,7 @@ export default function Ball({
     <>
       <RigidBody
         key={key}
-        scale={0.055}
+        scale={0.06}
         name='Ball'
         ref={ballRef}
         colliders='ball'

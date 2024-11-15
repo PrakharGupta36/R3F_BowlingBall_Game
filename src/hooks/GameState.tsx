@@ -88,7 +88,7 @@ export const GameState = create<GameStateProps>((set) => ({
       name: "#TOY0003_V2_Pin001_#TOY0003_V2_Textures_0",
       positionY: 0.124,
       position: function (): [number, number, number] {
-        return [0, this.positionY, 0.55]; // Closer on Z
+        return [0, this.positionY, 0.719];
       },
       rotation: [-Math.PI / 2, 0, 0],
       id: 1,
@@ -97,7 +97,7 @@ export const GameState = create<GameStateProps>((set) => ({
       name: "#TOY0003_V2_Pin002_#TOY0003_V2_Textures_0",
       positionY: 0.124,
       position: function (): [number, number, number] {
-        return [-0.1, this.positionY, 0.3]; // Closer on both X and Z
+        return [-0.15, this.positionY, 0.419];
       },
       rotation: [-Math.PI / 2, 0, 0],
       id: 2,
@@ -106,7 +106,7 @@ export const GameState = create<GameStateProps>((set) => ({
       name: "#TOY0003_V2_Pin003_#TOY0003_V2_Textures_0",
       positionY: 0.124,
       position: function (): [number, number, number] {
-        return [0.1, this.positionY, 0.3]; // Closer on both X and Z
+        return [0.15, this.positionY, 0.419];
       },
       rotation: [-Math.PI / 2, 0, 0],
       id: 3,
@@ -115,7 +115,7 @@ export const GameState = create<GameStateProps>((set) => ({
       name: "#TOY0003_V2_Pin004_#TOY0003_V2_Textures_0",
       positionY: 0.124,
       position: function (): [number, number, number] {
-        return [-0.2, this.positionY, 0.05]; // Closer on Z
+        return [-0.3, this.positionY, 0.12];
       },
       rotation: [-Math.PI / 2, 0, 0],
       id: 4,
@@ -124,7 +124,7 @@ export const GameState = create<GameStateProps>((set) => ({
       name: "#TOY0003_V2_Pin005_#TOY0003_V2_Textures_0",
       positionY: 0.124,
       position: function (): [number, number, number] {
-        return [0, this.positionY, 0.05]; // Closer on Z
+        return [0, this.positionY, 0.12];
       },
       rotation: [-Math.PI / 2, 0, 0],
       id: 5,
@@ -133,7 +133,7 @@ export const GameState = create<GameStateProps>((set) => ({
       name: "#TOY0003_V2_Pin006_#TOY0003_V2_Textures_0",
       positionY: 0.124,
       position: function (): [number, number, number] {
-        return [0.2, this.positionY, 0.05]; // Closer on Z
+        return [0.3, this.positionY, 0.12];
       },
       rotation: [-Math.PI / 2, 0, 0],
       id: 6,
@@ -142,7 +142,7 @@ export const GameState = create<GameStateProps>((set) => ({
       name: "#TOY0003_V2_Pin007_#TOY0003_V2_Textures_0",
       positionY: 0.124,
       position: function (): [number, number, number] {
-        return [-0.3, this.positionY, -0.1]; // Closer on Z
+        return [-0.449, this.positionY, -0.18];
       },
       rotation: [-Math.PI / 2, 0, 0],
       id: 7,
@@ -151,7 +151,7 @@ export const GameState = create<GameStateProps>((set) => ({
       name: "#TOY0003_V2_Pin008_#TOY0003_V2_Textures_0",
       positionY: 0.124,
       position: function (): [number, number, number] {
-        return [-0.1, this.positionY, -0.1]; // Closer on both X and Z
+        return [-0.15, this.positionY, -0.18];
       },
       rotation: [-Math.PI / 2, 0, 0],
       id: 8,
@@ -160,7 +160,7 @@ export const GameState = create<GameStateProps>((set) => ({
       name: "#TOY0003_V2_Pin009_#TOY0003_V2_Textures_0",
       positionY: 0.124,
       position: function (): [number, number, number] {
-        return [0.1, this.positionY, -0.1]; // Closer on both X and Z
+        return [0.15, this.positionY, -0.18];
       },
       rotation: [-Math.PI / 2, 0, 0],
       id: 9,
@@ -169,7 +169,7 @@ export const GameState = create<GameStateProps>((set) => ({
       name: "#TOY0003_V2_Pin010_#TOY0003_V2_Textures_0",
       positionY: 0.124,
       position: function (): [number, number, number] {
-        return [0.3, this.positionY, -0.1]; // Closer on Z
+        return [0.449, this.positionY, -0.18];
       },
       rotation: [-Math.PI / 2, 0, 0],
       id: 10,

@@ -38,7 +38,7 @@ const CanvasComponent = memo(
       <Suspense fallback={<Loader />}>
         <Canvas
           shadows
-          dpr={1}
+          dpr={2}
           gl={{
             antialias: true,
             stencil: false,

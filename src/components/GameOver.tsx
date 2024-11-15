@@ -23,7 +23,7 @@ export default function GameOver({
         <div className='game_over_inner'>
           <div>
             <h1>
-              You got all pins down <br /> in {tries} tries
+              You got all pins down <br /> in {tries + 1} tries
             </h1>
 
             <p>

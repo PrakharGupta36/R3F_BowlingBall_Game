@@ -39,11 +39,13 @@ export function Pins({ ...props }: PinsProps) {
 
   const [fallenPinIds, setFallenPinIds] = useState<number[]>([]);
 
+  const [pinFallingSound] = useState(new Audio("/sounds/Pins_Falling.mp3"));
+
   useEffect(() => {
     if (fallenPinIds.length === 10) {
       setTimeout(() => {
         setAllPinsDown(true);
-      }, 2500);
+      }, 1000);
     }
   }, [fallenPinIds, setAllPinsDown]);
 
@@ -52,7 +54,7 @@ export function Pins({ ...props }: PinsProps) {
       fallenPinIds.map((e) => {
         setPinsData(e, "positionY", -100);
       });
-    }, 2000);
+    }, 500);
 
     pinRefs.current.forEach((pinRef, index) => {
       if (pinRef) {
@@ -68,10 +70,14 @@ export function Pins({ ...props }: PinsProps) {
           // If the pin ID is not already in the fallenPinIds array, add it
           setFallenPinIds((prevIds) => {
             if (!prevIds.includes(pinId)) {
+              pinFallingSound.volume = 0.8;
+              pinFallingSound.play();
+
               const newIds = [...prevIds, pinId].sort((a, b) => a - b);
-              // console.log(`Fallen pins in ascending order: ${newIds}`);
+
               return newIds;
             }
+            // pinFallingSound.pause();
             return prevIds;
           });
         }
@@ -88,10 +94,10 @@ export function Pins({ ...props }: PinsProps) {
             name={`Pin-${pin.id}`}
             key={pin.id}
             ref={(ref) => (pinRefs.current[index] = ref)}
-            mass={1}
+            mass={0.5}
             position={position as [number, number, number]}
-            density={5}
-            scale={8}
+            density={1}
+            scale={9}
             restitution={0.005}
             colliders='hull'
           >

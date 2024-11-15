@@ -12,36 +12,19 @@
   background-color: transparent;
   color: white;
 
-  .pin_table {
+  .pin_card {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-
-    /* border-top: 1px solid white; */
+    place-items: center;
+    /* border-radius: 0.25rem; */
     width: 100%;
-    align-items: center;
-    justify-content: space-between;
-    position: relative;
-    /* top: %; */
-    gap: 0.1rem;
-    row-gap: 0.4rem;
+    height: 100%;
+    padding-bottom: 0.4rem;
+    background: linear-gradient(45deg, #1d1d1d, #000);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    
 
-    .pin_card {
-      display: grid;
-      place-items: center;
-      /* border-radius: 0.25rem; */
-      width: 100%;
-      height: 100%;
-      padding-bottom: 0.4rem;
-      background: linear-gradient(45deg, #1d1d1d, #000);
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      font-size: 0.95rem;
-      @media screen and (max-width: 800px) {
-        font-size: 0.6rem;
-      }
-
-      .icon {
-        width: 80px !important;
-      }
+    .icon {
+      width: 80px !important;
     }
   }
 }
