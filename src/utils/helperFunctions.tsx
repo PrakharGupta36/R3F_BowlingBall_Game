@@ -58,7 +58,7 @@ function submitValueStrength(
   } else if (value > 80 && value <= 90) {
     setStrength(-65);
   } else {
-    setStrength(-47);
+    setStrength(-55);
   }
 }
 

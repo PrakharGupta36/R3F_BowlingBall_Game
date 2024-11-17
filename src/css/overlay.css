@@ -17,7 +17,7 @@
   place-items: center;
   height: 100vh;
   @media only screen and (hover: none) and (pointer: coarse) {
-    height: 110vh;
+    height: 90vh;
   }
 
   /* Background image */
@@ -62,8 +62,34 @@
     margin: 0 1.5rem;
     text-align: center;
 
-    @media only screen and (max-width: 600px) {
-      height: 35vh;
+    button {
+      margin-top: 1rem;
     }
+
+    @media only screen and (max-width: 600px) {
+      height: 45vh;
+    }
+  }
+}
+
+.sounds_btns {
+  margin: 1.5rem 0;
+  display: flex;
+  gap: 4rem;
+  border: 1px solid white;
+  border-radius: 1rem;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  @media only screen and (max-width: 600px) {
+    padding: 2rem 0;
+    margin-top: 2.5rem;
+    width: 80%;
+    gap: 1rem;
+    flex-direction: column;
+  }
+
+  button {
+    margin: 1.5rem 0 !important;
   }
 }

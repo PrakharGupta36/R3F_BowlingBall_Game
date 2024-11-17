@@ -41,6 +41,8 @@ export function Pins({ ...props }: PinsProps) {
 
   const [pinFallingSound] = useState(new Audio("/sounds/Pins_Falling.mp3"));
 
+  const sounds = GameState((state) => state.sounds);
+
   useEffect(() => {
     if (fallenPinIds.length === 10) {
       setTimeout(() => {
@@ -70,8 +72,11 @@ export function Pins({ ...props }: PinsProps) {
           // If the pin ID is not already in the fallenPinIds array, add it
           setFallenPinIds((prevIds) => {
             if (!prevIds.includes(pinId)) {
-              pinFallingSound.volume = 0.8;
-              pinFallingSound.play();
+              
+              if (sounds) {
+                pinFallingSound.volume = 0.5;
+                pinFallingSound.play();
+              }
 
               const newIds = [...prevIds, pinId].sort((a, b) => a - b);
 

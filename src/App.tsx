@@ -1,6 +1,6 @@
 import { Canvas } from "@react-three/fiber";
 import Scene from "./components/Scene";
-import { Suspense, useState, useCallback, memo } from "react";
+import { Suspense, useState, useCallback, memo, useEffect } from "react";
 import { Loader } from "@react-three/drei";
 import "./css/overlay.css";
 import { GameState } from "./hooks/GameState";
@@ -12,7 +12,6 @@ import GameOver from "./components/GameOver";
 import TimeTracker from "./utils/TimeTracker";
 
 const OverlayComponent = memo(() => (
-  /* Intro Overlay */
   <AnimatePresence>
     <motion.div
       initial={{ opacity: 1 }}
@@ -27,7 +26,6 @@ const OverlayComponent = memo(() => (
 ));
 
 const CanvasComponent = memo(
-  /* Canvas shows up when intro is completed */
   ({ isIntroCompleted }: { isIntroCompleted: boolean }) => (
     <motion.div
       initial={{ opacity: 0 }}
@@ -57,15 +55,66 @@ export default function App(): JSX.Element {
   const [minutes, setMinutes] = useState<number>(0);
   const [seconds, setSeconds] = useState<number>(0);
   const { width, height } = useWindowSize();
+  const [BGM] = useState(() => {
+    const audio = new Audio("/sounds/BGM.mp3");
+    audio.loop = true;
+    audio.preload = "auto";
+    audio.volume = 0.25;
+    return audio;
+  });
 
-  // I'm getting an infinite loop error whenever I destructure variables from GameState, not gonna solve it, just calling them individually
   const isIntroCompleted = GameState((state) => state.isIntroCompleted);
-  const allPinsDown = GameState((set) => set.allPinsDown);
+  const allPinsDown = GameState((state) => state.allPinsDown);
+  const music = GameState((state) => state.music)
 
   const handleTimeChange = useCallback((min: number, sec: number): void => {
     setMinutes(min);
     setSeconds(sec);
   }, []);
+
+
+
+  useEffect(() => {
+    if (isIntroCompleted && music) {
+      const playAudio = () => {
+        BGM.play().catch(() => {
+          console.warn("Autoplay blocked. Waiting for user interaction...");
+          // Retry on user interaction
+          const enableAudio = () => {
+            BGM.play().catch((error) =>
+              console.error("Failed to play audio after interaction:", error)
+            );
+            document.removeEventListener("click", enableAudio);
+          };
+          document.addEventListener("click", enableAudio);
+        });
+      };
+
+      playAudio();
+    }
+
+    return () => {
+      BGM.pause(); // Stop audio when component unmounts
+    };
+  }, [BGM, isIntroCompleted]);
+
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible" && isIntroCompleted) {
+        BGM.play().catch((err) =>
+          console.error("Failed to resume audio on visibility change:", err)
+        );
+      } else {
+        BGM.pause();
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [BGM, isIntroCompleted]);
 
   return (
     <>

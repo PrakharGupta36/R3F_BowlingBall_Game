@@ -45,6 +45,12 @@ interface GameStateProps {
 
   tries: number;
   setTries: () => void;
+
+  music: boolean;
+  setMusic: (value: boolean) => void;
+
+  sounds: boolean;
+  setSounds: (value: boolean) => void;
 }
 
 export const GameState = create<GameStateProps>((set) => ({
@@ -52,7 +58,7 @@ export const GameState = create<GameStateProps>((set) => ({
   setIsIntroCompleted: (value: boolean) =>
     set(() => ({ isIntroCompleted: value })),
 
-  ballResetTime: 10,
+  ballResetTime: 5,
   setBallResetTime: (count: number) =>
     set(() => ({
       ballResetTime: count + 10,
@@ -196,4 +202,10 @@ export const GameState = create<GameStateProps>((set) => ({
 
   tries: 0,
   setTries: () => set((state) => ({ tries: state.tries + 1 })),
+
+  music: true,
+  setMusic: (value: boolean) => set(() => ({ music: value })),
+
+  sounds: true,
+  setSounds: (value: boolean) => set(() => ({ sounds: value })),
 }));

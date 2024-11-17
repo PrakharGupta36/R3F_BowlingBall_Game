@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import "../../css/button.css"; // Import the CSS file
 import { isMobile } from "react-device-detect";
+import { GameState } from "../../hooks/GameState";
 
 interface ButtonProps {
   onClick: (e: React.MouseEvent<HTMLElement>) => void;
@@ -23,9 +24,11 @@ export default function Button({
 
   const [clickSound] = useState(new Audio("/sounds/Click.mp3"));
 
+  const sounds = GameState((state) => state.sounds);
+
   const handlePress = (pressed: boolean) => {
     setIsPressed(pressed);
-    if (pressed) {
+    if (pressed && sounds) {
       clickSound.play();
     }
   };

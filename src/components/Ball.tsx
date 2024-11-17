@@ -42,14 +42,18 @@ export default function Ball({
   const ballResetTime = GameState((state) => state.ballResetTime);
   const [count, setCount] = useState(ballResetTime);
   const setTries = GameState((state) => state.setTries);
+  const sounds = GameState((state) => state.sounds);
 
   useEffect(() => {
     if (clicked && ballRef.current) {
       ballRef.current.applyImpulse({ x: direction, y: 0, z: strength }, true);
-      ballRollingSound.volume = 1;
-      ballRollingSound.play();
+
+      if (sounds) {
+        ballRollingSound.volume = 1;
+        ballRollingSound.play();
+      }
     }
-  }, [ballRef, ballRollingSound, clicked, direction, strength]);
+  }, [ballRef, ballRollingSound, clicked, direction, strength, sounds]);
 
   useEffect(() => {
     if (isThrow) {
