@@ -28,8 +28,8 @@ export default function GameOver({
 
             <p>
               {" "}
-              Congratrulations, you have wasted {minutes} minutes and {seconds} seconds of your
-              life in this game
+              Congratrulations, you have wasted {minutes} minutes and {seconds}{" "}
+              seconds of your life in this game
             </p>
           </div>
 
@@ -40,6 +40,10 @@ export default function GameOver({
             addedClassName=''
           />
         </div>
+
+        <a href='https://x.com/___prakhar' className='credit' target='__blank'>
+          ~ Made by Prakhar ❤️
+        </a>
       </motion.div>
     </AnimatePresence>
   );

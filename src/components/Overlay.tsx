@@ -1,4 +1,3 @@
-import { isMobile, isTablet } from "react-device-detect";
 import { GameState } from "../hooks/GameState";
 import Button from "./ui/Button";
 
@@ -38,13 +37,9 @@ export default function Overlay() {
           />
         </div>
 
-        {isMobile || isTablet ? (
-          <p className='info'>
-            {" "}
-            Textures may appear different in mobile, view in <br /> desktop for
-            full experience{" "}
-          </p>
-        ) : null}
+        <a href='https://x.com/___prakhar' className='credit' target='__blank'>
+          ~ Made by Prakhar ❤️
+        </a>
       </div>
     </div>
   );

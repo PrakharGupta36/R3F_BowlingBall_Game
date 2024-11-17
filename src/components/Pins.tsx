@@ -63,16 +63,15 @@ export function Pins({ ...props }: PinsProps) {
         const rotation = pinRef.rotation();
 
         if (
-          rotation.w < 0.75 ||
-          rotation.x > 0.5 ||
-          rotation.y > 0.5 ||
-          rotation.z > 0.5
+          rotation.w < 0.8 ||
+          rotation.x > 0.3 ||
+          rotation.y > 0.3 ||
+          rotation.z > 0.3
         ) {
           const pinId = pinsData[index].id;
           // If the pin ID is not already in the fallenPinIds array, add it
           setFallenPinIds((prevIds) => {
             if (!prevIds.includes(pinId)) {
-              
               if (sounds) {
                 pinFallingSound.volume = 0.5;
                 pinFallingSound.play();

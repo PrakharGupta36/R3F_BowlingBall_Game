@@ -59,7 +59,7 @@ export default function App(): JSX.Element {
     const audio = new Audio("/sounds/BGM.mp3");
     audio.loop = true;
     audio.preload = "auto";
-    audio.volume = 0.25;
+    audio.volume = 0.1;
     return audio;
   });
 
