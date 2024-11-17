@@ -65,14 +65,12 @@ export default function App(): JSX.Element {
 
   const isIntroCompleted = GameState((state) => state.isIntroCompleted);
   const allPinsDown = GameState((state) => state.allPinsDown);
-  const music = GameState((state) => state.music)
+  const music = GameState((state) => state.music);
 
   const handleTimeChange = useCallback((min: number, sec: number): void => {
     setMinutes(min);
     setSeconds(sec);
   }, []);
-
-
 
   useEffect(() => {
     if (isIntroCompleted && music) {
@@ -96,7 +94,7 @@ export default function App(): JSX.Element {
     return () => {
       BGM.pause(); // Stop audio when component unmounts
     };
-  }, [BGM, isIntroCompleted]);
+  }, [BGM, isIntroCompleted, music]);
 
   useEffect(() => {
     const handleVisibilityChange = () => {
