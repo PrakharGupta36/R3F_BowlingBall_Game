@@ -3,35 +3,35 @@ function submitValueDirection(
   setDirection: (value: number) => void
 ) {
   if (value >= -28 && value < -24) {
-    setDirection(-3);
+    setDirection(-4);
   } else if (value >= -24 && value < -20) {
-    setDirection(-2.5);
+    setDirection(-3.5);
   } else if (value >= -20 && value < -16) {
-    setDirection(-2);
+    setDirection(-3);
   } else if (value >= -16 && value < -12) {
-    setDirection(-1.5);
+    setDirection(-2.5);
   } else if (value >= -12 && value < -8) {
-    setDirection(-1);
+    setDirection(-2);
   } else if (value >= -8 && value < -4) {
-    setDirection(-0.5);
+    setDirection(-1.5);
   } else if (value >= -4 && value < 0) {
-    setDirection(0);
+    setDirection(1);
   } else if (value === 0) {
     setDirection(0);
   } else if (value > 0 && value <= 4) {
-    setDirection(0.5);
-  } else if (value > 4 && value <= 8) {
     setDirection(1);
-  } else if (value > 8 && value <= 12) {
+  } else if (value > 4 && value <= 8) {
     setDirection(1.5);
-  } else if (value > 12 && value <= 16) {
+  } else if (value > 8 && value <= 12) {
     setDirection(2);
-  } else if (value > 16 && value <= 20) {
+  } else if (value > 12 && value <= 16) {
     setDirection(2.5);
-  } else if (value > 20 && value <= 24) {
+  } else if (value > 16 && value <= 20) {
     setDirection(3);
-  } else if (value > 24 && value <= 28) {
+  } else if (value > 20 && value <= 24) {
     setDirection(3.5);
+  } else if (value > 24 && value <= 28) {
+    setDirection(4);
   }
 }
 
